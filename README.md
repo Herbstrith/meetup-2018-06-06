@@ -7,3 +7,4 @@ Attendees:
 * @diogoazevedos
 * @glazzari
 * @deboraduarte
+* @Herbstrith
