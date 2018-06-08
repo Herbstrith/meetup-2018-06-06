@@ -14,10 +14,10 @@ defmodule LuhnTest do
     assert Luhn.check_number("79427398713") == true
   end
 
-  test "foobar" do
-    assert Luhn.foobar(12) == 3
-    assert Luhn.foobar(13) == 4
-    assert Luhn.foobar(15) == 6
+  test "sum_digits" do
+    assert Luhn.sum_digits(12) == 3
+    assert Luhn.sum_digits(13) == 4
+    assert Luhn.sum_digits(15) == 6
   end
 
   test "calculate the luhn digit" do
