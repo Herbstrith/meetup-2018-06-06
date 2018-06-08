@@ -34,12 +34,7 @@ defmodule Luhn do
   def foobar(number), do: number
 
   def check_number(number) when is_bitstring(number) do
-    String.to_charlist(number)
-    |> Enum.all?(&symbol_is_digit?/1)
-  end
-
-  defp symbol_is_digit?(symbol) do
-    symbol >= ?0 and symbol <= ?9
+    Regex.match?(~r/^\d*$/, number)
   end
 
   defp double(x), do: 2 * x
