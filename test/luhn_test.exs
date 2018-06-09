@@ -23,5 +23,8 @@ defmodule LuhnTest do
   test "calculate the luhn digit" do
     assert Luhn.generate("7992739871") == 3
     assert Luhn.generate("7992739875") == 5
+    assert Luhn.generate("1234567890") == 3
+    assert Luhn.generate("565487") == 6
+    assert Luhn.generate("5654871") == 2
   end
 end
