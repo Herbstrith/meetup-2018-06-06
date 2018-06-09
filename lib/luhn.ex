@@ -1,26 +1,38 @@
 defmodule Luhn do
 
   def generate(number) do
-    # generate luhn number, 7992739871x -> 3
     unless check_number(number) do
       false
     else
-      reversed = number
-                 |> String.to_charlist
-                 |> Enum.reverse
-                 |> Enum.map(&cast_to_number/1)
-
-      doubles = Enum.take_every(reversed, 2)
-                |> Enum.map(&double/1)
-                |> Enum.map(&sum_digits/1)
-                |> Enum.sum()
-
-      singles = tl(reversed)
-                |> Enum.take_every(2)
-                |> Enum.sum()
-
-      rem((singles + doubles) * 9, 10)
+      digitsList = String.to_charlist(number) |> Enum.map(&cast_to_number/1)
+      doublesSum = double_digits_sum(digitsList)
+      singlesSum = single_digits_sum(digitsList)
+      rem((doublesSum + singlesSum) * 9, 10)
     end
+  end
+
+  def check_number(number) when is_bitstring(number) do
+    Regex.match?(~r/^\d*$/, number)
+  end
+
+  def double_digits_sum(number) do
+    listToIterate = cond do
+      rem(length(number) + 1, 2) != 0 -> tl(number)
+      true -> number
+    end
+    Enum.take_every(listToIterate, 2)
+      |> Enum.map(&double/1)
+      |> Enum.map(&sum_digits/1)
+      |> Enum.sum()
+  end
+
+  def single_digits_sum(number) do
+    listToIterate = cond do
+      rem(length(number) + 1, 2) != 0 -> number
+      true -> number
+    end
+    Enum.take_every(listToIterate, 2)
+      |> Enum.sum()
   end
 
   def cast_to_number(string) do
@@ -33,9 +45,6 @@ defmodule Luhn do
 
   def sum_digits(number), do: number
 
-  def check_number(number) when is_bitstring(number) do
-    Regex.match?(~r/^\d*$/, number)
-  end
-
   defp double(x), do: 2 * x
+
 end
