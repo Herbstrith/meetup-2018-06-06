@@ -38,10 +38,32 @@ defmodule LuhnTest do
 
   test "Should validate a input string" do
     assert Luhn.validate("79927398713") == true
+    assert Luhn.validate("79927398755") == true
+    assert Luhn.validate("12345678903") == true
+    assert Luhn.validate("5654876") == true
+    assert Luhn.validate("56548712") == true
   end
 
   test "Should validate a input integer" do
     assert Luhn.validate(79927398713) == true
+    assert Luhn.validate(79927398755) == true
+    assert Luhn.validate(12345678903) == true
+    assert Luhn.validate(5654876) == true
+    assert Luhn.validate(56548712) == true
+  end
+
+  test "Should not validate invalid string input (float)" do
+    assert Luhn.generate_check_digit("72132.1") == {:error, "input is not a integer"}
+  end
+
+  test "Should not validate invalid string input (space)" do
+    assert Luhn.generate_check_digit("72132 1") == {:error, "input is not a integer"}
+  end
+
+  test "Should not validate a float input" do
+    assert_raise FunctionClauseError, fn ->
+      Luhn.generate_check_digit(72132.13)
+    end
   end
 
 end
