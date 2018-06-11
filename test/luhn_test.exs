@@ -40,4 +40,8 @@ defmodule LuhnTest do
     assert Luhn.validate("79927398713") == true
   end
 
+  test "Should validate a input integer" do
+    assert Luhn.validate(79927398713) == true
+  end
+
 end
