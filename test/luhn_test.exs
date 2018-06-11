@@ -36,4 +36,8 @@ defmodule LuhnTest do
     assert Luhn.generate_check_digit("792739871 3") == {:error, "input is not a integer"}
   end
 
+  test "Should validate a input string" do
+    assert Luhn.validate("79927398713") == true
+  end
+
 end

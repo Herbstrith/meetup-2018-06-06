@@ -1,4 +1,15 @@
 defmodule Luhn do
+
+  def validate(number) when is_bitstring(number) do
+    unless check_number(number) do
+      {:error, "input is not a integer"}
+    else
+      digitsList = String.to_charlist(number)
+      [luhnDigit | digitsListReversed] = Enum.reverse(digitsList)
+      cast_to_number(luhnDigit) == generate(Enum.reverse(digitsListReversed))
+    end
+  end
+
   def generate_check_digit(number) when is_bitstring(number) do
     unless check_number(number) do
       {:error, "input is not a integer"}
